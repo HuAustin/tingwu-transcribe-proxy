@@ -10,7 +10,7 @@
 
 ## 背景
 
-[MacWhisper](https://goodsnooze.gumroad.com/l/macwhisper) 是 Mac 上体验很好的语音转文本工具，集成了 AI 总结、系统录音、会议录制等功能。但它的本地模型精度有限，且占用算力、耗时较长；而云端模型方面，海外供应商成本偏高。通义听悟是国内体验较好的云端转写服务，但它提供的是阿里云风格的 HTTP API/WebSocket 接口，协议与 OpenAI Whisper 不兼容。因此本项目通过通义听悟 API 提供高精度、低成本的云端转写能力，同时将其包装为 Whisper 兼容接口。
+[MacWhisper](https://goodsnooze.gumroad.com/l/macwhisper) 是 Mac 上体验很好的语音转文本工具，集成了 AI 总结、系统录音、会议录制等功能。但它的本地模型精度有限，且占用算力、耗时较长；而云端模型方面，海外供应商成本偏高。通义听悟是国内体验较好的云端转写服务，成本和效果都更合适；但它提供的是阿里云风格的 HTTP API/WebSocket 接口，与 OpenAI Whisper 协议不兼容。因此本项目把通义听悟能力包装成 Whisper 兼容接口，让现有客户端可以直接接入。
 
 本项目是一个本地代理服务，将通义听悟的语音转写能力包装为 OpenAI Whisper API 兼容格式（`POST /v1/audio/transcriptions`）。**任何兼容 OpenAI Whisper API 的客户端**（MacWhisper、OpenAI Python SDK、curl 等）均可直接对接使用，不局限于某一个特定应用。
 
@@ -220,6 +220,10 @@ tingwu-transcribe-proxy/
 **Q: 大文件转写超时**
 
 确保系统安装了 ffmpeg（`brew install ffmpeg`）。代理会自动对视频文件提取音频轨道以缩减体积。如果仍然超时，可以用 CLI 模式转写，没有超时限制。
+
+**Q: 长音频（如 2 小时以上）任务立即失败，报 `PRE.AudioDurationQuotaLimit`**
+
+这是通义听悟侧的配额限制，不是代理代码问题。将听悟项目的音视频文件转写能力从“试用”切换为“商用”后可恢复（实测 2 小时 4 分钟音频可正常处理）。
 
 **Q: OSS 连接报 SignatureDoesNotMatch**
 

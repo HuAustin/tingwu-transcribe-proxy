@@ -6,7 +6,7 @@ Alibaba Cloud [Tongyi Tingwu](https://tingwu.aliyun.com/) → OpenAI Whisper API
 
 ## Background
 
-[MacWhisper](https://goodsnooze.gumroad.com/l/macwhisper) is an excellent speech-to-text app on Mac with AI summarization, system audio recording, and meeting capture. However, its local models have limited accuracy and consume significant compute resources. On the cloud side, overseas providers are costly. Tongyi Tingwu offers high-quality transcription at a fraction of the price, but it exposes Alibaba Cloud-style HTTP API/WebSocket interfaces that are incompatible with the OpenAI Whisper protocol. This project bridges Tongyi Tingwu's API to deliver accurate, affordable cloud transcription while wrapping it into a Whisper-compatible interface.
+[MacWhisper](https://goodsnooze.gumroad.com/l/macwhisper) is an excellent speech-to-text app on Mac with AI summarization, system audio recording, and meeting capture. However, its local models have limited accuracy and consume significant compute resources. On the cloud side, overseas providers are costly. Tongyi Tingwu is often a better fit in both cost and quality, but it exposes Alibaba Cloud-style HTTP API/WebSocket interfaces that are incompatible with the OpenAI Whisper protocol. This project wraps Tongyi Tingwu into a Whisper-compatible interface so existing clients can connect directly.
 
 This project is a local proxy service that wraps Tongyi Tingwu's transcription capabilities into an OpenAI Whisper API compatible format (`POST /v1/audio/transcriptions`). **Any client compatible with the OpenAI Whisper API** (MacWhisper, OpenAI Python SDK, curl, etc.) can connect directly — it is not limited to any specific application.
 
